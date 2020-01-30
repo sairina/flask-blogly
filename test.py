@@ -15,7 +15,10 @@ class UserTests(TestCase):
         """ Tests if user gets added to the database """
 
     def test_valid_fields(self):
-        """ Tests 
+        """ Tests """
+
+    def test_delete_user(self):
+        """ Tests """
     
     """ Integration Tests """
 

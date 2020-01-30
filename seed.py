@@ -13,7 +13,7 @@ User.query.delete()
 # Add users
 whiskey = User(first_name='Whiskey', last_name='Dog',
                img_url='https://www.rithmschool.com/assets/team/whiskey-9b3a868a98c344edc42ce3ea87c26595f2e2e72328fc96eef9263ced6ba42fd4.jpg')
-john = User(first_name='John', species="Smith", img_url=NULL)
+john = User(first_name='John', last_name="Smith")
 
 # Add new objects to session, so they'll persist
 db.session.add(whiskey)

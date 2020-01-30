@@ -5,13 +5,13 @@
 {% block header %}Edit a user{% endblock %}
 
 {% block content %}
-  <form action="#">
+  <form method="POST">
     <label for="first_name">First Name</label>
-      <input type="text" value="{{user.first_name}}" name="first_name">
+      <input type="text" value="{{user.first_name}}" name="first_name"><br><br>
     <label for="last_name">Last Name</label>
-      <input type="text" value="{{user.last_name}}" name="last_name">
+      <input type="text" value="{{user.last_name}}" name="last_name"><br><br>
     <label for="img_url">Image URL</label>
-      <input type="text" value="{{user.img_url}}" name="img_url">
-    <button>Add</button>
+      <input type="text" value="{{user.img_url}}" name="img_url"><br><br>
+    <a href="/users/{{user.id}}" class="button cancel">Cancel</a>  <button>Save</button>
   </form>
 {% endblock %}

@@ -13,9 +13,9 @@
   
     <h3>Posts</h3>
     <ul>
-      {% for post in posts %}
+      {% for post in user.post_bridge %}
       <li>
-        <a href="/posts/{{post.id}}">{{post.title}}</a>
+        <a href="/posts/{{post.id}}">{{user.post_bridge.title}}</a>
       </li>
       {% endfor %}
     </ul>

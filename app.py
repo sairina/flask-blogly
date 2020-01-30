@@ -15,10 +15,6 @@ db.create_all()
 app.config['SECRET_KEY'] = "poiawhefiusiuawe"
 debug = DebugToolbarExtension(app)
 
-# def get_user_data(user_id) {
-
-# }
-
 
 @app.route("/")
 def index():
@@ -31,8 +27,8 @@ def user_list():
     """ Show all users.
     Make these links to view the detail page for the user.
     Have a link here to the add-user form. """
-    users = User.query.all()
-    return render_template('user-listing.html', users=users)
+
+    return render_template('user-listing.html', users=User.query.all())
 
 
 @app.route("/users/new")
@@ -48,8 +44,7 @@ def create_user():
 
     first_name = request.form.get('first_name')
     last_name = request.form.get('last_name')
-    img_url = request.form.get('img_url')
-    img_url = img_url if img_url else None
+    img_url = request.form.get('img_url') or None
     user = User(first_name=first_name, last_name=last_name, img_url=img_url)
     db.session.add(user)
     db.session.commit()
@@ -63,8 +58,7 @@ def show_user_profile(user_id):
     Have a button to get to their edit page, and to delete the user. """
 
     user = User.query.get_or_404(user_id)
-    posts = user.post_bridge
-    return render_template("user-detail-page.html", user=user,posts=posts)
+    return render_template("user-detail-page.html", user=user)
 
 
 @app.route("/users/<int:user_id>/edit")
@@ -82,11 +76,10 @@ def edit_user_post(user_id):
     """ Process the edit form, returning the user to the /users page. """
 
     # (grabbing info for POST)
-    this_user = User.query.get(user_id)
+    this_user = User.query.get_or_404(user_id)
     first_name = request.form.get('first_name')
     last_name = request.form.get('last_name')
-    img_url = request.form.get('img_url')
-    img_url = img_url if img_url else None
+    img_url = request.form.get('img_url') or None
 
     # (POST)
     this_user.first_name = first_name
@@ -94,12 +87,14 @@ def edit_user_post(user_id):
     this_user.img_url = img_url
     db.session.commit()
 
+    # try fstring
     return redirect("/users/" + str(user_id))
 
 
-@app.route("/users/<int:user_id>/delete", methods=["POST", "GET"])
+@app.route("/users/<int:user_id>/delete", methods=["POST", "GET"]) 
 def delete_user(user_id):
     """ Delete the user. """
+    # maybe change to just post + button
 
     User.query.filter_by(id=user_id).delete()
     db.session.commit()
@@ -121,19 +116,19 @@ def submit_post_form(user_id):
 
     title = request.form.get('title')
     content = request.form.get('content')
-    # img_url = request.form.get('img_url')
-    # img_url = img_url if img_url else None
 
     post = Post(title=title, content=content, user_id=user_id)
     db.session.add(post)
     db.session.commit()
 
+    # fstring
     return redirect("/users/" + str(user_id))
 
 
 @app.route("/posts/<int:post_id>")
 def show_post(post_id):
     """ Show a post, show buttons to edit and delete posts """
+
     post = Post.query.get_or_404(post_id)
     return render_template("post-detail-page.html", post=post)
 
@@ -154,16 +149,16 @@ def submit_post_edit(post_id):
     post.title = request.form.get("title")
     post.content = request.form.get("content")
     db.session.commit()
-
+# fstring
     return redirect("/posts/" + str(post_id))
 
 @app.route("/posts/<int:post_id>/delete", methods=["POST","GET"])
 def delete_post(post_id):
-    """ Delete the post. """
+    # """ Delete the post. """ get
     post = Post.query.get(post_id)
     user = post.user_bridge
     db.session.delete(post)
     
     db.session.commit()
-
+# fstring
     return redirect("/users/" + str(user.id))

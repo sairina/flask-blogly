@@ -27,6 +27,7 @@ class User(db.Model):
 
     post_bridge = db.relationship('Post', backref='user_bridge')
 
+
 class Post(db.Model):
     """ Posts """
 

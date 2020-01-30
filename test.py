@@ -12,10 +12,22 @@ class UserTests(TestCase):
     """ Unit Tests """
 
     def test_add_user(self):
-        """ Tests if user gets added to the database """
+        """ Tests if user gets added to the user listing page """
+        with app.test_client() as client:
+            resp = client.post("/users/new", data={'first_name':'Mathilda', 'last_name':'Jones'}, follow_redirects=True)
+            html = resp.get_data(as_text=True)
 
-    def test_valid_fields(self):
-        """ Tests """
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('Mathilda Jones', html)
+        # FURTHER STUDY: Check database
+        # https://stackoverflow.com/questions/17791571/testing-flask-sql-alchemy
+
+    # def test_valid_fields_add_user(self):
+    #      """ NOT WORKING! Test that form inputs are valid on create user page """
+    #      with app.test_client() as client:
+    #          resp = client.post("/users/new", data={'first_name':'','last_name':5},follow_redirects=True)
+    #          html = resp.get_data(as_text=True)
+
 
     def test_delete_user(self):
         """ Tests """

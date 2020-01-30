@@ -14,7 +14,9 @@ class UserTests(TestCase):
     def test_add_user(self):
         """ Tests if user gets added to the database """
 
-
+    def test_valid_fields(self):
+        """ Tests 
+    
     """ Integration Tests """
 
     def test_index_redirect(self):

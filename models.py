@@ -20,12 +20,13 @@ class User(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    first_name = db.Column(db.Text, nullable=False )
+    first_name = db.Column(db.Text, nullable=False)
     last_name = db.Column(db.Text, nullable=False)
     img_url = db.Column(db.Text, nullable=True,
                         default='https://premium.wpmudev.org/blog/wp-content/uploads/2012/04/mystery-man-small.jpg')
 
     post_bridge = db.relationship('Post', backref='user_bridge')
+
 
 class Post(db.Model):
     """ Posts """
@@ -55,5 +56,6 @@ class PostTag(db.Model):
 
     __tablename__ = "post_tags"
 
-    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey(
+        "posts.id"), primary_key=True)
     tag_id = db.Column(db.Integer, db.ForeignKey("tags.id"), primary_key=True)

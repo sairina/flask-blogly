@@ -13,7 +13,10 @@
     <br><br>
     <a href="/users/{{post.user_bridge.id}}" class="button cancel">Cancel</a> 
     <a href="/posts/{{post.id}}/edit" class="button edit">Edit</a>
-    <a href="/posts/{{post.id}}/delete" class="button delete">Delete</a>
+    <form action="/posts/{{post.id}}/delete" method="POST">
+      <button class="button delete">Delete</button>
+    </form>
+    <!-- <a href="/posts/{{post.id}}/delete" class="button delete">Delete</a> -->
   </div>
   
 

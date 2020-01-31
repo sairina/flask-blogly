@@ -87,16 +87,15 @@ def edit_user_post(user_id):
     this_user.img_url = img_url
     db.session.commit()
 
-    # try fstring
-    return redirect("/users/" + str(user_id))
+    return redirect(f"/users/{user_id}")
 
 
-@app.route("/users/<int:user_id>/delete", methods=["POST", "GET"]) 
+@app.route("/users/<int:user_id>/delete", methods=["POST"])
 def delete_user(user_id):
     """ Delete the user. """
-    # maybe change to just post + button
 
-    User.query.filter_by(id=user_id).delete()
+    user = User.query.get_or_404(user_id)
+    db.session.delete(user)
     db.session.commit()
 
     return redirect("/users")
@@ -121,8 +120,7 @@ def submit_post_form(user_id):
     db.session.add(post)
     db.session.commit()
 
-    # fstring
-    return redirect("/users/" + str(user_id))
+    return redirect(f"/users/{user_id}")
 
 
 @app.route("/posts/<int:post_id>")
@@ -143,22 +141,24 @@ def show_edit_post_form(post_id):
 
 @app.route("/posts/<int:post_id>/edit", methods=["POST"])
 def submit_post_edit(post_id):
-    """ Handle editing of a post. Redirect bak to the post view. """
+    """ Handle editing of a post. Redirect back to the post view. """
 
     post = Post.query.get_or_404(post_id)
     post.title = request.form.get("title")
     post.content = request.form.get("content")
     db.session.commit()
-# fstring
-    return redirect("/posts/" + str(post_id))
 
-@app.route("/posts/<int:post_id>/delete", methods=["POST","GET"])
+    return redirect(f"/posts/{post_id}")
+
+
+@app.route("/posts/<int:post_id>/delete", methods=["POST"])
 def delete_post(post_id):
-    # """ Delete the post. """ get
-    post = Post.query.get(post_id)
+    """ Delete the post. """
+
+    post = Post.query.get_or_404(post_id)
     user = post.user_bridge
     db.session.delete(post)
-    
+
     db.session.commit()
-# fstring
-    return redirect("/users/" + str(user.id))
+
+    return redirect(f"/users/{user.id}")

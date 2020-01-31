@@ -9,13 +9,16 @@
   <div class="container">
     <h2>{{user.first_name}} {{user.last_name}}</h2>
     <a href="/users/{{user.id}}/edit" class='button edit'>Edit</a>
-    <a href="/users/{{user.id}}/delete" class='button delete'>Delete</a>
+    <!-- <a href="/users/{{user.id}}/delete" class='button delete'>Delete</a> -->
+    <form action="/users/{{user.id}}/delete" method="POST">
+      <button class='button delete'>Delete</button>
+    </form>
   
     <h3>Posts</h3>
     <ul>
       {% for post in user.post_bridge %}
       <li>
-        <a href="/posts/{{post.id}}">{{user.post_bridge.title}}</a>
+        <a href="/posts/{{post.id}}">{{post.title}}</a> 
       </li>
       {% endfor %}
     </ul>

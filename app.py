@@ -101,6 +101,9 @@ def delete_user(user_id):
     return redirect("/users")
 
 
+""" PART 2 """
+
+
 @app.route("/users/<int:user_id>/posts/new")
 def new_post_form(user_id):
     """Show form to add a post for that user."""
@@ -162,3 +165,38 @@ def delete_post(post_id):
     db.session.commit()
 
     return redirect(f"/users/{user.id}")
+
+
+""" PART 3 """
+
+
+@app.route("/tags")
+def get_tags():
+    """ Lists all tags, with links to the tag detail page. """
+
+    # need to set up links to tag detail page
+    return render_template("list-tag.html", tags=Tag.query.all())
+
+
+# @app.route("/tags/<tag_id>")
+# """ Show detail about a tag. Have links to edit form and to delete."""
+
+
+# @app.route("/tags/new")
+# """ Shows a form to add a new tag. """
+
+
+# @app.route("/tags/new", methods=["POST"])
+# """ Process add form, adds tag, and redirect to tag list. """
+
+
+# @app.route("/tags/[tag-id]/edit")
+# """ Show edit form for a tag. """
+
+
+# @app.route("/tags/[tag-id]/edit", methods=["POST"])
+# """ Process edit form, edit tag, and redirects to the tags list. """
+
+
+# @app.route("/tags/[tag-id]/delete", methods=["POST"])
+# """ Delete a tag. """

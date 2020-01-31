@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Tags{% endblock %}
+
+{% block header %}Tags{% endblock %}
+
+{% block content %}
+
+  <ul>
+    {% for tag in tags %}
+    <li><a href="#">{{tag.name}}</a></li>
+    {% endfor %}
+  </ul>
+  
+
+{% endblock %}
